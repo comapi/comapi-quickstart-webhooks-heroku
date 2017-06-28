@@ -7,7 +7,7 @@
 var app = require('./app');
 var fs = require('fs');
 var debug = require('debug')('webhooks:server');
-var https = require('https');
+var http = require('http');
 
 /**
  * Get port from environment and store in Express.
@@ -16,22 +16,13 @@ var https = require('https');
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
-/**
- * Create HTTP server with SSL support.
- */
-var sslOptions = {
-    key: fs.readFileSync('./ssl/key.pem'),
-    cert: fs.readFileSync('./ssl/cert.pem'),
-    passphrase: "password"
-};
-
-var server = https.createServer(sslOptions, app);
+var server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
  */
 console.log('Express listening on port: ' + port);
-console.log('Browse to https://localhost:' + port + '/')
+console.log('Browse to http://localhost:' + port + '/')
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
