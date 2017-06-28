@@ -33,7 +33,7 @@ router.post('/', function (req, res, next) {
     }
     else {
       // Validate the HMAC, ensure you has exposed the rawBody, see app.js for how to do this
-      let hash = cryptoJS.HmacSHA1(req.rawBody, ">>>YOUR SECRET<<<");
+      let hash = cryptoJS.HmacSHA1(req.rawBody, "a secret");
 
       if (hmac != hash) {
         // The request is not from Comapi or has been tampered with
